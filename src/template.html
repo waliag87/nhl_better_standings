@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Current NHL standings organized by point percentage with division leaders and wild card positions">
+  <title>NHL Standings by Point Percentage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Skip to main content link for keyboard navigation -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header>
+    <div class="header-content">
+      <div class="header-main">
+        <h1>NHL Standings</h1>
+        <p class="last-updated">Last Updated: <span id="last-updated-time">--</span></p>
+      </div>
+      
+      <!-- Legend explaining playoff indicators -->
+      <section class="legend" aria-labelledby="legend-heading">
+        <h2 id="legend-heading" class="legend-title">Legend</h2>
+        <div class="legend-items">
+          <div class="legend-item">
+            <span class="legend-icon legend-icon-star" aria-hidden="true">★</span>
+            <span class="legend-label">Division Leader</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-icon legend-icon-wc" aria-hidden="true">WC</span>
+            <span class="legend-label">Wild Card</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <!-- Warning banner for stale data (hidden by default) -->
+  <div id="stale-data-warning" class="warning-banner" role="alert" style="display: none;">
+    <strong>⚠ Warning:</strong> Unable to fetch current data. Displaying cached standings from <span id="cache-timestamp">--</span>.
+  </div>
+
+  <main id="main-content">
+    <!-- Eastern Conference -->
+    <section class="conference" id="eastern-conference" aria-labelledby="eastern-conference-heading">
+      <h2 id="eastern-conference-heading">Eastern Conference</h2>
+      
+      <!-- Atlantic Division -->
+      <div class="division">
+        <h3 id="atlantic-division-heading">Atlantic Division</h3>
+        <table class="standings-table" aria-labelledby="atlantic-division-heading">
+          <caption class="sr-only">Atlantic Division Standings - Teams ranked by point percentage</caption>
+          <thead>
+            <tr>
+              <th scope="col">Team</th>
+              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+            </tr>
+          </thead>
+          <tbody id="atlantic-division">
+            <!-- Teams will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Metropolitan Division -->
+      <div class="division">
+        <h3 id="metropolitan-division-heading">Metropolitan Division</h3>
+        <table class="standings-table" aria-labelledby="metropolitan-division-heading">
+          <caption class="sr-only">Metropolitan Division Standings - Teams ranked by point percentage</caption>
+          <thead>
+            <tr>
+              <th scope="col">Team</th>
+              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+            </tr>
+          </thead>
+          <tbody id="metropolitan-division">
+            <!-- Teams will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Eastern Wild Card -->
+      <div class="wild-card">
+        <h3 id="eastern-wild-card-heading">Wild Card</h3>
+        <table class="standings-table" aria-labelledby="eastern-wild-card-heading">
+          <caption class="sr-only">Eastern Conference Wild Card Standings - Non-division leaders ranked by point percentage</caption>
+          <thead>
+            <tr>
+              <th scope="col">Team</th>
+              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+            </tr>
+          </thead>
+          <tbody id="eastern-wild-card">
+            <!-- Wild card teams will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Western Conference -->
+    <section class="conference" id="western-conference" aria-labelledby="western-conference-heading">
+      <h2 id="western-conference-heading">Western Conference</h2>
+      
+      <!-- Central Division -->
+      <div class="division">
+        <h3 id="central-division-heading">Central Division</h3>
+        <table class="standings-table" aria-labelledby="central-division-heading">
+          <caption class="sr-only">Central Division Standings - Teams ranked by point percentage</caption>
+          <thead>
+            <tr>
+              <th scope="col">Team</th>
+              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+            </tr>
+          </thead>
+          <tbody id="central-division">
+            <!-- Teams will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pacific Division -->
+      <div class="division">
+        <h3 id="pacific-division-heading">Pacific Division</h3>
+        <table class="standings-table" aria-labelledby="pacific-division-heading">
+          <caption class="sr-only">Pacific Division Standings - Teams ranked by point percentage</caption>
+          <thead>
+            <tr>
+              <th scope="col">Team</th>
+              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+            </tr>
+          </thead>
+          <tbody id="pacific-division">
+            <!-- Teams will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Western Wild Card -->
+      <div class="wild-card">
+        <h3 id="western-wild-card-heading">Wild Card</h3>
+        <table class="standings-table" aria-labelledby="western-wild-card-heading">
+          <caption class="sr-only">Western Conference Wild Card Standings - Non-division leaders ranked by point percentage</caption>
+          <thead>
+            <tr>
+              <th scope="col">Team</th>
+              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+            </tr>
+          </thead>
+          <tbody id="western-wild-card">
+            <!-- Wild card teams will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <p>Data source: <a href="https://api-web.nhle.com" target="_blank" rel="noopener noreferrer">NHL API</a></p>
+  </footer>
+
+  <!-- Standings data will be embedded here -->
+  <script id="standings-data" type="application/json">
+    <!-- JSON data will be inserted here -->
+  </script>
+  
+  <script type="module" src="app.js"></script>
+</body>
+</html>

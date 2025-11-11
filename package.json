@@ -1,0 +1,20 @@
+{
+  "name": "nhl-standings-website",
+  "version": "1.0.0",
+  "description": "Static NHL standings website with automatic daily updates",
+  "type": "module",
+  "main": "dist/scripts/build.js",
+  "scripts": {
+    "build": "tsc",
+    "generate": "npm run build && node dist/scripts/build.js",
+    "dev": "tsc --watch",
+    "test": "npm run build && node --test dist/tests/*.test.js"
+  },
+  "keywords": ["nhl", "standings", "hockey"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  }
+}
