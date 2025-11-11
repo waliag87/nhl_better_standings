@@ -139,8 +139,9 @@ The workflow is defined in `.github/workflows/update-standings.yml`:
 3. **Install dependencies**: Runs `npm ci` for clean install
 4. **Build TypeScript**: Compiles TypeScript files
 5. **Generate site**: Fetches NHL data and generates static files
-6. **Commit changes**: Commits updated `dist/` files to main branch
-7. **Deploy to GitHub Pages**: Publishes `dist/` directory to `gh-pages` branch
+6. **Commit changes**: Commits updated `dist/` files to the default branch (if there are changes)
+7. **Upload artifact**: Packages the built `dist/` directory for Pages
+8. **Deploy to GitHub Pages**: Uses `actions/deploy-pages` to publish the artifact
 
 ### Required Permissions
 
@@ -167,10 +168,8 @@ To deploy this site using GitHub Pages:
 
 1. Go to your repository settings
 2. Navigate to "Pages" in the left sidebar
-3. Under "Source", select "Deploy from a branch"
-4. Select the `gh-pages` branch
-5. Select `/ (root)` as the folder
-6. Click "Save"
+3. Under "Build and deployment", set **Source** to **GitHub Actions**
+4. Click "Save"
 
 ### 2. Configure Repository Permissions
 
