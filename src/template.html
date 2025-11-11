@@ -3,10 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Current NHL standings organized by point percentage with division leaders and wild card positions">
-  <title>NHL Points Percentage Standings</title>
+  <meta name="description" content="Daily NHL standings by point percentage with real-time division leaders, wild card races, and a playoff threshold calculator.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="/">
+  <title>NHL Standings by Point Percentage &amp; Playoff Odds Tracker</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NHL Standings by Point Percentage &amp; Playoff Odds Tracker">
+  <meta property="og:description" content="See current NHL standings, division leaders, and wild card races ranked by points percentage. Includes a playoff calculator and daily refreshes from the NHL API.">
+  <meta property="og:url" content="/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NHL Standings by Point Percentage">
+  <meta name="twitter:description" content="Track NHL standings, playoff races, and required points percentage with daily data.">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23003366'/%3E%3Cpath%20d='M8%2011h16v2H8zm0%206h16v2H8zm0%206h16v2H8z'%20fill='%23ffffff'%20opacity='0.9'/%3E%3C/svg%3E" type="image/svg+xml">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      "name": "NHL Standings by Point Percentage",
+      "description": "Daily refreshed NHL standings featuring division leaders, wild card teams, and playoff probability context derived from the NHL API.",
+      "keywords": ["NHL standings", "hockey standings", "points percentage", "NHL playoff picture"],
+      "url": "/",
+      "isBasedOn": "https://api-web.nhle.com/",
+      "publisher": {
+        "@type": "Organization",
+        "name": "NHL Standings Percentage",
+        "url": "/"
+      },
+      "license": "https://opensource.org/licenses/MIT"
+    }
+  </script>
 </head>
 <body>
   <!-- Skip to main content link for keyboard navigation -->
@@ -15,7 +41,7 @@
   <header>
     <div class="header-content">
       <div class="header-main">
-    <h1>NHL Points Percentage Standings</h1>
+    <h1>NHL Standings by Point Percentage</h1>
         <p class="last-updated">Last Updated: <span id="last-updated-time">--</span></p>
       </div>
       
@@ -42,6 +68,21 @@
   </div>
 
   <main id="main-content">
+    <section class="page-intro" aria-labelledby="intro-heading">
+      <h2 id="intro-heading" class="sr-only">About these NHL standings</h2>
+      <p>
+        This independent tracker pulls the latest numbers from the official NHL API and ranks every team by point percentage so you can see the true pecking order at a glance.
+        Division leaders, wild card hopefuls, and bubble teams are highlighted, and the optional playoff calculator reveals how much of their remaining schedule each club must win to stay alive.
+      </p>
+      <p>
+        Bookmark this page for daily NHL standings updates, compare conferences in seconds, and share the link whenever someone asks for the current NHL playoff picture.
+      </p>
+      <ul class="intro-highlights">
+        <li>Eastern and Western conference tables refresh with every data pull.</li>
+        <li>Point-percentage sort keeps teams with games in hand in the right order.</li>
+        <li>Wild card marker and calculator show realistic playoff odds without guesswork.</li>
+      </ul>
+    </section>
     <!-- Playoff Calculator Control -->
     <section class="playoff-calculator-control" role="region" aria-labelledby="calculator-heading">
       <button 
