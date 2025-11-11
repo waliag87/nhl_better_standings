@@ -6,6 +6,7 @@
   <meta name="description" content="Current NHL standings organized by point percentage with division leaders and wild card positions">
   <title>NHL Points Percentage Standings</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23003366'/%3E%3Cpath%20d='M8%2011h16v2H8zm0%206h16v2H8zm0%206h16v2H8z'%20fill='%23ffffff'%20opacity='0.9'/%3E%3C/svg%3E" type="image/svg+xml">
 </head>
 <body>
   <!-- Skip to main content link for keyboard navigation -->
@@ -41,6 +42,52 @@
   </div>
 
   <main id="main-content">
+    <!-- Playoff Calculator Control -->
+    <section class="playoff-calculator-control" role="region" aria-labelledby="calculator-heading">
+      <button 
+        type="button" 
+        id="calculator-toggle" 
+        class="calculator-toggle" 
+        aria-expanded="false" 
+        aria-controls="calculator-content"
+        aria-label="Toggle playoff calculator"
+      >
+        <span id="calculator-heading" class="calculator-title">Playoff Calculator</span>
+        <span class="toggle-icon" aria-hidden="true">▼</span>
+      </button>
+      <div id="calculator-content" class="calculator-content" hidden>
+        <div class="calculator-input-group">
+          <label for="playoff-threshold">
+            Estimated Playoff Threshold (Points):
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="number" 
+              id="playoff-threshold" 
+              name="playoff-threshold"
+              min="80" 
+              max="120"
+              placeholder="Enter 80-120"
+              aria-describedby="threshold-description threshold-error"
+              aria-invalid="false"
+            />
+            <button 
+              type="button" 
+              id="clear-threshold" 
+              class="clear-button"
+              aria-label="Clear playoff threshold"
+              style="display: none;"
+            >
+              Clear
+            </button>
+          </div>
+          <span id="threshold-description" class="helper-text">
+            Enter the estimated points needed to make the playoffs (typically 90-100). The "Req. Pts %" column will appear showing what percentage of remaining points each team needs to reach your threshold.
+          </span>
+          <span id="threshold-error" class="error-message" aria-live="polite" style="display: none;"></span>
+        </div>
+      </div>
+    </section>
     <!-- Eastern Conference -->
     <section class="conference" id="eastern-conference" aria-labelledby="eastern-conference-heading">
       <h2 id="eastern-conference-heading">Eastern Conference</h2>
@@ -48,67 +95,76 @@
       <!-- Atlantic Division -->
       <div class="division">
         <h3 id="atlantic-division-heading">Atlantic Division</h3>
-        <table class="standings-table" aria-labelledby="atlantic-division-heading">
-          <caption class="sr-only">Atlantic Division Standings - Teams ranked by point percentage</caption>
-          <thead>
-            <tr>
-              <th scope="col">Team</th>
-              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
-              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
-              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
-              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
-              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
-              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
-            </tr>
-          </thead>
-          <tbody id="atlantic-division">
-            <!-- Teams will be inserted here -->
-          </tbody>
-        </table>
+        <div class="standings-table-wrapper">
+          <table class="standings-table" aria-labelledby="atlantic-division-heading">
+            <caption class="sr-only">Atlantic Division Standings - Teams ranked by point percentage. Optional playoff calculator column available when threshold is entered.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Team</th>
+                <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+                <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+                <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+                <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+                <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+                <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+                <th scope="col" class="req-pts-col" aria-label="Required Points Percentage" style="display: none;"><abbr title="Required Points Percentage">Req. Pts %</abbr></th>
+              </tr>
+            </thead>
+            <tbody id="atlantic-division">
+              <!-- Teams will be inserted here -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Metropolitan Division -->
       <div class="division">
         <h3 id="metropolitan-division-heading">Metropolitan Division</h3>
-        <table class="standings-table" aria-labelledby="metropolitan-division-heading">
-          <caption class="sr-only">Metropolitan Division Standings - Teams ranked by point percentage</caption>
-          <thead>
-            <tr>
-              <th scope="col">Team</th>
-              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
-              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
-              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
-              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
-              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
-              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
-            </tr>
-          </thead>
-          <tbody id="metropolitan-division">
-            <!-- Teams will be inserted here -->
-          </tbody>
-        </table>
+        <div class="standings-table-wrapper">
+          <table class="standings-table" aria-labelledby="metropolitan-division-heading">
+            <caption class="sr-only">Metropolitan Division Standings - Teams ranked by point percentage. Optional playoff calculator column available when threshold is entered.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Team</th>
+                <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+                <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+                <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+                <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+                <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+                <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+                <th scope="col" class="req-pts-col" aria-label="Required Points Percentage" style="display: none;"><abbr title="Required Points Percentage">Req. Pts %</abbr></th>
+              </tr>
+            </thead>
+            <tbody id="metropolitan-division">
+              <!-- Teams will be inserted here -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Eastern Wild Card -->
       <div class="wild-card">
         <h3 id="eastern-wild-card-heading">Wild Card</h3>
-        <table class="standings-table" aria-labelledby="eastern-wild-card-heading">
-          <caption class="sr-only">Eastern Conference Wild Card Standings - Non-division leaders ranked by point percentage</caption>
-          <thead>
-            <tr>
-              <th scope="col">Team</th>
-              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
-              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
-              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
-              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
-              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
-              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
-            </tr>
-          </thead>
-          <tbody id="eastern-wild-card">
-            <!-- Wild card teams will be inserted here -->
-          </tbody>
-        </table>
+        <div class="standings-table-wrapper">
+          <table class="standings-table" aria-labelledby="eastern-wild-card-heading">
+            <caption class="sr-only">Eastern Conference Wild Card Standings - Non-division leaders ranked by point percentage. Optional playoff calculator column available when threshold is entered.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Team</th>
+                <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+                <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+                <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+                <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+                <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+                <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+                <th scope="col" class="req-pts-col" aria-label="Required Points Percentage" style="display: none;"><abbr title="Required Points Percentage">Req. Pts %</abbr></th>
+              </tr>
+            </thead>
+            <tbody id="eastern-wild-card">
+              <!-- Wild card teams will be inserted here -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -119,67 +175,76 @@
       <!-- Central Division -->
       <div class="division">
         <h3 id="central-division-heading">Central Division</h3>
-        <table class="standings-table" aria-labelledby="central-division-heading">
-          <caption class="sr-only">Central Division Standings - Teams ranked by point percentage</caption>
-          <thead>
-            <tr>
-              <th scope="col">Team</th>
-              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
-              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
-              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
-              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
-              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
-              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
-            </tr>
-          </thead>
-          <tbody id="central-division">
-            <!-- Teams will be inserted here -->
-          </tbody>
-        </table>
+        <div class="standings-table-wrapper">
+          <table class="standings-table" aria-labelledby="central-division-heading">
+            <caption class="sr-only">Central Division Standings - Teams ranked by point percentage. Optional playoff calculator column available when threshold is entered.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Team</th>
+                <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+                <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+                <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+                <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+                <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+                <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+                <th scope="col" class="req-pts-col" aria-label="Required Points Percentage" style="display: none;"><abbr title="Required Points Percentage">Req. Pts %</abbr></th>
+              </tr>
+            </thead>
+            <tbody id="central-division">
+              <!-- Teams will be inserted here -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Pacific Division -->
       <div class="division">
         <h3 id="pacific-division-heading">Pacific Division</h3>
-        <table class="standings-table" aria-labelledby="pacific-division-heading">
-          <caption class="sr-only">Pacific Division Standings - Teams ranked by point percentage</caption>
-          <thead>
-            <tr>
-              <th scope="col">Team</th>
-              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
-              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
-              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
-              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
-              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
-              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
-            </tr>
-          </thead>
-          <tbody id="pacific-division">
-            <!-- Teams will be inserted here -->
-          </tbody>
-        </table>
+        <div class="standings-table-wrapper">
+          <table class="standings-table" aria-labelledby="pacific-division-heading">
+            <caption class="sr-only">Pacific Division Standings - Teams ranked by point percentage. Optional playoff calculator column available when threshold is entered.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Team</th>
+                <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+                <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+                <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+                <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+                <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+                <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+                <th scope="col" class="req-pts-col" aria-label="Required Points Percentage" style="display: none;"><abbr title="Required Points Percentage">Req. Pts %</abbr></th>
+              </tr>
+            </thead>
+            <tbody id="pacific-division">
+              <!-- Teams will be inserted here -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Western Wild Card -->
       <div class="wild-card">
         <h3 id="western-wild-card-heading">Wild Card</h3>
-        <table class="standings-table" aria-labelledby="western-wild-card-heading">
-          <caption class="sr-only">Western Conference Wild Card Standings - Non-division leaders ranked by point percentage</caption>
-          <thead>
-            <tr>
-              <th scope="col">Team</th>
-              <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
-              <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
-              <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
-              <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
-              <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
-              <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
-            </tr>
-          </thead>
-          <tbody id="western-wild-card">
-            <!-- Wild card teams will be inserted here -->
-          </tbody>
-        </table>
+        <div class="standings-table-wrapper">
+          <table class="standings-table" aria-labelledby="western-wild-card-heading">
+            <caption class="sr-only">Western Conference Wild Card Standings - Non-division leaders ranked by point percentage. Optional playoff calculator column available when threshold is entered.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Team</th>
+                <th scope="col" aria-label="Games Played"><abbr title="Games Played">GP</abbr></th>
+                <th scope="col" aria-label="Wins"><abbr title="Wins">W</abbr></th>
+                <th scope="col" aria-label="Losses"><abbr title="Losses">L</abbr></th>
+                <th scope="col" aria-label="Overtime Losses"><abbr title="Overtime Losses">OTL</abbr></th>
+                <th scope="col" aria-label="Points"><abbr title="Points">PTS</abbr></th>
+                <th scope="col" aria-label="Point Percentage"><abbr title="Point Percentage">P%</abbr></th>
+                <th scope="col" class="req-pts-col" aria-label="Required Points Percentage" style="display: none;"><abbr title="Required Points Percentage">Req. Pts %</abbr></th>
+              </tr>
+            </thead>
+            <tbody id="western-wild-card">
+              <!-- Wild card teams will be inserted here -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>
