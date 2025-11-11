@@ -4,6 +4,11 @@
  */
 
 /**
+ * Playoff status for a team
+ */
+export type PlayoffStatus = 'clinched' | 'eliminated' | 'competing';
+
+/**
  * Processed team with calculated standings information
  */
 export interface Team {
@@ -24,6 +29,12 @@ export interface Team {
   isWildCard: boolean;
   divisionRank: number;
   conferenceRank: number;
+  // Playoff calculator properties
+  remainingGames?: number;
+  remainingPoints?: number;
+  maxPossiblePoints?: number;
+  playoffStatus?: PlayoffStatus;
+  requiredPointsPercentage?: number;
 }
 
 /**
@@ -75,4 +86,16 @@ export interface PointPercentageInput {
 export interface PointPercentageResult {
   percentage: number;
   formatted: string; // Three decimal places
+}
+
+/**
+ * Playoff calculations for a team based on a playoff threshold
+ */
+export interface PlayoffCalculations {
+  remainingGames: number;
+  remainingPoints: number;
+  maxPossiblePoints: number;
+  pointsGap: number;
+  requiredPointsPercentage: number | null;
+  playoffStatus: PlayoffStatus;
 }

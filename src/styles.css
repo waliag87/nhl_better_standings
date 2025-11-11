@@ -34,7 +34,7 @@
   --font-size-2xl: 2rem;
   
   /* Layout */
-  --max-width: 1200px;
+  --max-width: 1340px;
   --border-radius: 0.5rem;
 }
 
@@ -250,6 +250,284 @@ footer {
 }
 
 /* ===================================
+   Playoff Calculator Control
+   =================================== */
+.playoff-calculator-control {
+  background-color: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin: 0 auto var(--spacing-lg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  max-width: var(--max-width);
+}
+
+.calculator-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calculator-toggle:hover,
+.calculator-toggle:focus-visible {
+  border-color: var(--color-primary);
+  background-color: var(--color-background-alt);
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+  outline: none;
+}
+
+.calculator-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.toggle-icon {
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+  transition: transform 0.2s ease;
+}
+
+.calculator-toggle[aria-expanded="true"] .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.calculator-content {
+  margin-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border-light);
+  padding-top: var(--spacing-md);
+}
+
+.calculator-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.calculator-input-group label {
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.input-wrapper {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.playoff-calculator-control input[type="number"] {
+  width: 140px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  border: 2px solid var(--color-border);
+  border-radius: 0.375rem;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.playoff-calculator-control input[type="number"]:hover {
+  border-color: var(--color-primary-light);
+}
+
+.playoff-calculator-control input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+
+.playoff-calculator-control input[type="number"]:invalid,
+.playoff-calculator-control input[type="number"][aria-invalid="true"] {
+  border-color: #dc3545;
+}
+
+.playoff-calculator-control input[type="number"]::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+}
+
+/* Remove spinner arrows on number input for cleaner look */
+.playoff-calculator-control input[type="number"]::-webkit-inner-spin-button,
+.playoff-calculator-control input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+.clear-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  font-family: var(--font-family);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-button:hover {
+  background-color: var(--color-border);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+.clear-button:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.clear-button:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.helper-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  display: block;
+}
+
+.error-message {
+  font-size: var(--font-size-sm);
+  color: #dc3545;
+  font-weight: 500;
+  display: block;
+  padding: var(--spacing-xs) 0;
+}
+
+/* ===================================
+   Status Badges (Playoff Calculator)
+   =================================== */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.status-clinched {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-eliminated {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* ===================================
+   Required Percentage Color Coding
+   =================================== */
+
+/* Achievable: 0-50% - Team needs to play at or below current pace */
+.achievable {
+  color: #28a745;
+  font-weight: 600;
+}
+
+/* Moderate: 50-60% - Team needs to improve slightly */
+.moderate {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+/* Difficult: 60-75% - Team needs significant improvement */
+.difficult {
+  color: #fd7e14;
+  font-weight: 600;
+}
+
+/* Very Difficult: 75%+ - Team needs to win almost all remaining games */
+.very-difficult {
+  color: #dc3545;
+  font-weight: 700;
+}
+
+/* ===================================
+   Playoff Calculator Column Transitions
+   =================================== */
+
+/* Smooth transitions for calculator column appearance/disappearance */
+.standings-table {
+  transition: width 0.25s ease-in-out;
+}
+
+/* Column header transitions */
+.standings-table th.req-pts-col {
+  opacity: 0;
+  max-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: opacity 0.25s ease-in-out, 
+              max-width 0.25s ease-in-out,
+              padding 0.25s ease-in-out;
+}
+
+.standings-table th.req-pts-col.visible {
+  opacity: 1;
+  max-width: 120px;
+  padding-left: var(--spacing-sm);
+  padding-right: var(--spacing-sm);
+}
+
+/* Column cell transitions */
+.standings-table td.req-pts-cell {
+  opacity: 0;
+  max-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: opacity 0.25s ease-in-out,
+              max-width 0.25s ease-in-out,
+              padding 0.25s ease-in-out;
+}
+
+.standings-table td.req-pts-cell.visible {
+  opacity: 1;
+  max-width: 120px;
+  padding-left: var(--spacing-sm);
+  padding-right: var(--spacing-sm);
+}
+
+/* Tablet and desktop - larger max-width */
+@media (min-width: 768px) {
+  .standings-table th.req-pts-col.visible {
+    max-width: 150px;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+  
+  .standings-table td.req-pts-cell.visible {
+    max-width: 150px;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+}
+
+/* ===================================
    Conference Sections
    =================================== */
 .conference {
@@ -274,6 +552,28 @@ footer {
   border-top: 2px solid var(--color-border);
 }
 
+.standings-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background-color: var(--color-background);
+  border-radius: var(--border-radius);
+  box-shadow: inset 0 0 0 1px var(--color-border-light);
+  padding-bottom: var(--spacing-xs);
+}
+
+.standings-table-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.standings-table-wrapper::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.standings-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 4px;
+}
+
 /* ===================================
    Tables - Mobile First
    =================================== */
@@ -282,8 +582,7 @@ footer {
   border-collapse: collapse;
   background-color: var(--color-background);
   font-size: var(--font-size-sm);
-  overflow-x: auto;
-  display: block;
+  min-width: 520px;
 }
 
 .standings-table thead {
@@ -434,6 +733,105 @@ abbr:focus {
 }
 
 /* ===================================
+   Responsive Design - Mobile (max-width: 767px)
+   =================================== */
+@media (max-width: 767px) {
+  /* Playoff Calculator - Full width on mobile */
+  .playoff-calculator-control {
+    margin: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+  
+  .playoff-calculator-control input[type="number"] {
+    width: 100%;
+    max-width: 200px;
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 44px; /* Touch-friendly size */
+  }
+  
+  .clear-button {
+    min-height: 44px; /* Touch-friendly size */
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+  
+  .input-wrapper {
+    width: 100%;
+  }
+  
+  /* Table adjustments for calculator column */
+  .standings-table {
+    font-size: 0.75rem;
+  }
+  
+  .standings-table th,
+  .standings-table td {
+    padding: var(--spacing-xs) 0.25rem;
+  }
+  
+  .standings-table th:first-child,
+  .standings-table td:first-child {
+    min-width: 100px;
+    padding-left: var(--spacing-sm);
+  }
+  
+  /* Hide less critical columns when calculator is active */
+  .standings-table.calculator-active th:nth-child(2),
+  .standings-table.calculator-active td:nth-child(2) {
+    display: none; /* Hide GP (Games Played) */
+  }
+  
+  .standings-table.calculator-active th:nth-child(3),
+  .standings-table.calculator-active td:nth-child(3) {
+    display: none; /* Hide W (Wins) */
+  }
+  
+  .standings-table.calculator-active th:nth-child(4),
+  .standings-table.calculator-active td:nth-child(4) {
+    display: none; /* Hide L (Losses) */
+  }
+  
+  .standings-table.calculator-active th:nth-child(5),
+  .standings-table.calculator-active td:nth-child(5) {
+    display: none; /* Hide OTL (Overtime Losses) */
+  }
+  
+  /* Ensure calculator column remains visible and readable */
+  .standings-table th:last-child,
+  .standings-table td:last-child {
+    min-width: 70px;
+    font-size: 0.75rem;
+  }
+  
+  /* Status badges - smaller on mobile */
+  .status-badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.4rem;
+  }
+  
+  /* Percentage values - ensure readability */
+  .standings-table td.achievable,
+  .standings-table td.moderate,
+  .standings-table td.difficult,
+  .standings-table td.very-difficult {
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  
+  /* Touch-friendly hover states (disable on mobile) */
+  .standings-table tbody tr:hover {
+    background-color: transparent;
+  }
+  
+  .standings-table tbody tr.division-leader:hover {
+    background-color: var(--color-division-leader-bg);
+  }
+  
+  .standings-table tbody tr.wild-card:hover {
+    background-color: var(--color-wild-card-bg);
+  }
+}
+
+/* ===================================
    Responsive Design - Tablet (768px+)
    =================================== */
 @media (min-width: 768px) {
@@ -455,6 +853,37 @@ abbr:focus {
   .legend {
     margin: 0;
     min-width: 240px;
+  }
+  
+  .playoff-calculator-control {
+    margin: var(--spacing-xl) var(--spacing-lg);
+    padding: var(--spacing-xl);
+  }
+  
+  .calculator-input-group {
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .calculator-input-group label {
+    min-width: 280px;
+    padding-top: var(--spacing-xs);
+  }
+  
+  .input-wrapper {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .helper-text {
+    flex-basis: 100%;
+    margin-left: 280px;
+  }
+  
+  .error-message {
+    flex-basis: 100%;
+    margin-left: 280px;
   }
   
   main {
@@ -491,28 +920,16 @@ abbr:focus {
   /* CSS Grid Layout for Divisions */
   .conference {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
     gap: var(--spacing-xl);
-    grid-template-areas:
-      "header header"
-      "div1 div2"
-      "wildcard wildcard";
   }
   
   .conference > h2 {
-    grid-area: header;
-  }
-  
-  .conference .division:first-of-type {
-    grid-area: div1;
-  }
-  
-  .conference .division:last-of-type {
-    grid-area: div2;
+    grid-column: 1 / -1;
   }
   
   .conference .wild-card {
-    grid-area: wildcard;
+    grid-column: 1 / -1;
     border-top: 2px solid var(--color-border);
     padding-top: var(--spacing-lg);
   }
